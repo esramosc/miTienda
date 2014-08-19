@@ -7,21 +7,82 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<title><g:layoutTitle default="Grails"/></title>
+		<title>Mi Tienda</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="shortcut icon" href="${resource(dir: 'images', file: 'favicon.ico')}" type="image/x-icon">
 		<link rel="apple-touch-icon" href="${resource(dir: 'images', file: 'apple-touch-icon.png')}">
 		<link rel="apple-touch-icon" sizes="114x114" href="${resource(dir: 'images', file: 'apple-touch-icon-retina.png')}">
-		<link rel="stylesheet" href="${resource(dir: 'css', file: 'main.css')}" type="text/css">
-		<link rel="stylesheet" href="${resource(dir: 'css', file: 'mobile.css')}" type="text/css">
+        <link rel="stylesheet" href="${resource(dir: 'css', file: 'bootstrap.css')}" type="text/css">
+		<link rel="stylesheet" href="${resource(dir: 'css', file: 'bootstrap-theme.css')}" type="text/css">
+        <link rel="stylesheet" href="${resource(dir:'css/owl',file:'owl.carousel.css')}" type="text/css">
+        <link rel="stylesheet" href="${resource(dir:'css/owl',file:'owl.theme.css')}" type="text/css">
+        <link rel="stylesheet" href="${resource(dir:'css/owl',file:'owl.transitions.css')}" type="text/css">
+        <link rel="stylesheet" href="${resource(dir:'css',file:'styles.css')}" type="text/css">
+        <link rel="stylesheet" href="${resource(dir:'css',file:'menu.css')}" type="text/css">
+        <g:javascript library="jquery" plugin="jquery"/>
 		<g:layoutHead/>
 		<r:layoutResources />
 	</head>
 	<body>
-		<div id="grailsLogo" role="banner"><a href="http://grails.org"><img src="${resource(dir: 'images', file: 'grails_logo.png')}" alt="Grails"/></a></div>
-		<g:layoutBody/>
-		<div class="footer" role="contentinfo"></div>
-		<div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>
+        <div class="container">
+            <div class="content">
+                <div class="panel panel-warning">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <img src="${resource(dir:'images',file:'tienda-online.png')}" class="img-rounded" width="180px"/>
+                            </div>
+                            <div class="col-md-10">
+                                <div style="height: 100px;">
+                                    <div id="owl-demo" class="owl-carousel">
+                                        <div class="item"><img src="${resource(dir:'images',file:'banner3.jpg')}"></div>
+                                        <div class="item"><img src="${resource(dir:'images',file:'banner4.jpg')}"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <%
+                                def roleId = session.roleId
+                                if(roleId!=null){
+                            %>
+                            <g:menu roleId="${roleId}"/>
+                            <%
+                                }
+                            %>
+                        </div>
+                        <div class="row">
+                            <g:layoutBody/>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <small>Desarrollado por xxxxx</small>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <script src="${resource(dir:'js',file:'jquery.alphanumeric.pack.js')}"></script>
+        <script src="${resource(dir:'js/owl',file:'owl.carousel.js')}"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $("#owl-demo").owlCarousel({
+                    navigation : false,
+                    singleItem : true,
+                    transitionStyle : "fade",
+                    autoPlay : true,
+                    pagination : false
+                });
+            });
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('.number').numeric({allow: "9"});
+                $('.letters').alpha({allow: " "});
+            });
+        </script>
 		<g:javascript library="application"/>
 		<r:layoutResources />
 	</body>
