@@ -9,7 +9,7 @@ class Region {
     static constraints = {
         region blank: false, nullable: false
         description blank: false, nullable: false
-        registerDate nullable: false
+        registerDate nullable: true
     }
 
 }

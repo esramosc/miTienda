@@ -2,6 +2,7 @@ package mitienda
 
 class AdminUser {
 
+    String  role
     String  name
     String  lastname
     String  address
@@ -14,6 +15,7 @@ class AdminUser {
     Date    registerDate
 
     static constraints = {
+        role blank: false, nullable: false
         name blank: false, nullable: false
         lastname blank: false, nullable: false
         address blank: false, nullable: false

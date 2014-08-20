@@ -7,7 +7,7 @@ class RegionController {
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def index() {
-        redirect(action: "list", params: params)
+        redirect(action: "create", params: params)
     }
 
     def list(Integer max) {
@@ -21,12 +21,16 @@ class RegionController {
 
     def save() {
         def regionInstance = new Region(params)
-        if (!regionInstance.save(flush: true)) {
+        regionInstance.validate()
+        if (regionInstance.hasErrors()) {
             render(view: "create", model: [regionInstance: regionInstance])
             return
         }
-
-        flash.message = message(code: 'default.created.message', args: [message(code: 'region.label', default: 'Region'), regionInstance.id])
+        regionInstance.registerDate = new Date()
+        if(!regionInstance.save(flush: true)){
+            render(view: "create", model: [regionInstance: regionInstance])
+            return
+        }
         redirect(action: "show", id: regionInstance.id)
     }
 

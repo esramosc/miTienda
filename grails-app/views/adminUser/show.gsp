@@ -38,7 +38,7 @@
 
                     <g:if test="${adminUserInstance?.branch}">
                     <li class="list-group-item">
-                        <span id="branch-label" class="property-label"><strong>Sucursal:</strong> <g:fieldValue bean="${adminUserInstance}" field="branch"/></span>
+                        <span id="branch-label" class="property-label"><strong>Sucursal:</strong> ${branchName}</span>
                     </li>
                     </g:if>
 
@@ -57,6 +57,12 @@
                     <g:if test="${adminUserInstance?.password}">
                         <li class="list-group-item">
                             <span id="password-label" class="property-label"><strong>Contrase&ntilde;a:</strong> <g:fieldValue bean="${adminUserInstance}" field="password"/></span>
+                        </li>
+                    </g:if>
+
+                    <g:if test="${adminUserInstance?.role}">
+                        <li class="list-group-item">
+                            <span id="role-label" class="property-label"><strong>Rol:</strong> ${roleName}</span>
                         </li>
                     </g:if>
 
