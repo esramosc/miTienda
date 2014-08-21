@@ -18,4 +18,15 @@ class LoginService {
         return result
     }
 
+    def getRoleId(String username){
+        def sql = new Sql(dataSource)
+        def result = 0
+        def query = ""
+        query = "SELECT role FROM admin_user WHERE username = ?"
+        sql.eachRow(query,[username]){
+            result = it.role
+        }
+        return result
+    }
+
 }

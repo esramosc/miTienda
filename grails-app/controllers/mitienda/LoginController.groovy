@@ -12,6 +12,9 @@ class LoginController {
     }
 
     def create() {
+        if(session.auth=="yes"){
+            redirect(action: "menu")
+        }
         def error = ""
         [loginInstance: new Login(params),error:error]
     }
@@ -28,7 +31,7 @@ class LoginController {
             render(view: "create", model: [loginInstance: loginInstance,error:"error"])
             return
         }
-
+        session.roleId = loginService.getRoleId(loginInstance.name)
         session.auth = "yes"
         session.username = loginInstance.name
         redirect(action: "menu")
@@ -43,6 +46,13 @@ class LoginController {
         userTran.transactionDesc = "Ingreso al sistema"
         userTran.transactionDate = new Date()
         userTran.save(flush: true)
+    }
+
+    def logout(){
+        session.roleId = null
+        session.auth = null
+        session.username = null
+        redirect(uri: "/")
     }
 
 

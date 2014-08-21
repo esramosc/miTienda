@@ -11,7 +11,7 @@ class MenuService {
         def sql = new Sql(dataSource)
         def results = []
         def query = ""
-        query = "SELECT acc_id,acc_name FROM access WHERE acc_category = 'YES' AND acc_id IN(SELECT acc_id FROM permisos WHERE role_id = ?) ORDER BY acc_name "
+        query = "SELECT acc_id,acc_name FROM access WHERE acc_category = 'SI' AND acc_id IN(SELECT acc FROM permisos WHERE role = ?) ORDER BY acc_name "
         sql.eachRow(query,[roleId]){
             def result = new Expando()
             result.acc_id = it.acc_id
@@ -25,7 +25,7 @@ class MenuService {
         def sql = new Sql(dataSource)
         def results = []
         def query = ""
-        query = "SELECT acc_name,acc_controller,acc_action FROM access WHERE acc_show= 'YES' AND acc_categoryId = ? AND acc_id IN(SELECT acc_id FROM permisos WHERE role_id = ?) ORDER BY acc_name"
+        query = "SELECT acc_name,acc_controller,acc_action FROM access WHERE acc_show= 'SI' AND acc_categoryId = ? AND acc_id IN(SELECT acc FROM permisos WHERE role = ?) ORDER BY acc_name"
         sql.eachRow(query,[catId,roleId]){
             def result = new Expando()
             result.acc_name = it.acc_name

@@ -79,6 +79,9 @@ class AccessController {
 
     def update(Long id, Long version) {
         def accessInstance = Access.get(id)
+        def toProceed = true
+        def categories = accessService.getCategories()
+        def errorSubcat = ""
         if (!accessInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'access.label', default: 'Access'), id])
             redirect(action: "list")
@@ -96,6 +99,26 @@ class AccessController {
         }
 
         accessInstance.properties = params
+
+        if(accessInstance.subcategory=="SI"){
+            if(accessInstance.categoryId=="" || accessInstance.categoryId==null){
+                errorSubcat = "ERROR"
+                toProceed = false
+            }
+        }
+        if(params.subcategory==null)
+            accessInstance.subcategory = ""
+        if(params.categoryId==null)
+            accessInstance.categoryId = ""
+
+        if(accessInstance.category=="SI" || accessInstance.subcategory=="SI"){
+            accessInstance.show = "SI"
+        }else{
+            accessInstance.show = "NO"
+        }
+        if(accessInstance.subcategory==""){
+            accessInstance.subcategory = "NO"
+        }
 
         if (!accessInstance.save(flush: true)) {
             render(view: "edit", model: [accessInstance: accessInstance])

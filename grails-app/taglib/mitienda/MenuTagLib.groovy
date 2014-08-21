@@ -13,10 +13,10 @@ class MenuTagLib {
         def appName = grailsApplication.metadata['app.name']
 
         result = "<div id='cssmenu'>"
-        result +="<ul><li><a href='/"+appName+"/admin'><span>Inicio</span></a></li>"
+        result +="<ul><li><a href='/"+appName+"/login'><span>Inicio</span></a></li>"
 
         categories.each {
-            result += "<li class='active has-sub'><a href='#'><span>"+it.acc_name+"</span></a>"
+            result += "<li class='has-sub'><a href='#'><span>"+it.acc_name+"</span></a>"
             subcat = menuService.getSubmenu((int)it.acc_id,role)
             result += "<ul>"
             subcat.each {
@@ -25,7 +25,7 @@ class MenuTagLib {
             result += "</ul></li>"
         }
 
-        result +="<li><a href='/"+appName+"/admin/logout'><span>Salir</span></a></li></ul>"
+        result +="<li><a href='/"+appName+"/login/logout'><span>Salir</span></a></li></ul>"
         result += "</div>"
         out << result
     }
