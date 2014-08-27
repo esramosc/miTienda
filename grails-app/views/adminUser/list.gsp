@@ -58,9 +58,11 @@
                 </g:each>
                 </tbody>
             </table>
-            <div class="pagination">
-                <g:paginate total="${adminUserInstanceTotal}" />
-            </div>
+            <% if(adminUserInstanceTotal>10){ %>
+                <div class="pagination">
+                    <g:paginate total="${adminUserInstanceTotal}" />
+                </div>
+            <% } %>
 		</div>
 	</body>
 </html>

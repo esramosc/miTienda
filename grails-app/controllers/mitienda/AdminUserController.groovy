@@ -127,7 +127,7 @@ class AdminUserController {
             def filename = downloadedFile.getOriginalFilename();
             def extension = filename.substring(filename.lastIndexOf('.'))
             if(extension != ".png" && extension != ".jpg" && extension != ".jpeg" && extension != ".PNG" && extension != ".JPG" && extension != ".JPEG" ){
-                render(view: "create", model: [adminUserInstance: adminUserInstance,errorFormat:"El formato del archivo no es permitido",roles:roles,branches:branches])
+                render(view: "edit", model: [adminUserInstance: adminUserInstance,errorFormat:"El formato del archivo no es permitido",roles:roles,branches:branches])
                 return
             }
             def newFileName = new Date().format("yyyy-MM-dd-HH-mm-ss") + extension

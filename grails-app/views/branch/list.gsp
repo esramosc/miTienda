@@ -42,9 +42,11 @@
 				</g:each>
 				</tbody>
 			</table>
-			<div class="pagination">
-				<g:paginate total="${branchInstanceTotal}" />
-			</div>
+            <% if(branchInstanceTotal>10){ %>
+                <div class="pagination">
+                    <g:paginate total="${branchInstanceTotal}" />
+                </div>
+            <% } %>
 		</div>
 	</body>
 </html>

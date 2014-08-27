@@ -4307,6 +4307,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 .breadcrumb > .active {
   color: #777;
 }
+/**
 .pagination {
   display: inline-block;
   padding-left: 0;
@@ -4400,6 +4401,49 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
 }
+**/
+
+/* PAGINATION */
+
+.pagination {
+    border-top: 0;
+    margin: 0;
+    padding: 0.3em 0.2em;
+    text-align: center;
+    -moz-box-shadow: 0 0 3px 1px #2A6496;
+    -webkit-box-shadow: 0 0 3px 1px #2A6496;
+    box-shadow: 0 0 3px 1px #2A6496;
+    background-color: #FFFFFF;
+}
+
+.pagination a,
+.pagination .currentStep {
+    color: #2A6496;
+    display: inline-block;
+    margin: 0 0.1em;
+    padding: 0.25em 0.7em;
+    text-decoration: none;
+    -moz-border-radius: 0.3em;
+    -webkit-border-radius: 0.3em;
+    border-radius: 0.3em;
+}
+
+.pagination a:hover, .pagination a:focus,
+.pagination .currentStep {
+    background-color: #999999;
+    color: #ffffff;
+    outline: none;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
+}
+
+.no-borderradius .pagination a:hover, .no-borderradius .pagination a:focus,
+.no-borderradius .pagination .currentStep {
+    background-color: transparent;
+    color: #444444;
+    text-decoration: underline;
+}
+
+
 .pager {
   padding-left: 0;
   margin: 20px 0;
