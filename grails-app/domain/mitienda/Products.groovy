@@ -5,7 +5,7 @@ class Products {
     String  category
     String  product
     String  description
-    int     quantity
+    float   quantity
     float   buyPrice
     float   salePrice
     float   mayorPrice
@@ -20,7 +20,7 @@ class Products {
         category blank: false, nullable: false
         product blank: false, nullable: false, unique: true
         description blank: false, nullable: false
-        quantity null:false,min: 1
+        quantity null:false,min: 0.1F
         buyPrice null:false
         salePrice null:false
         mayorPrice null:false

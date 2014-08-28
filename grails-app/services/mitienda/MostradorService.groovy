@@ -90,4 +90,51 @@ class MostradorService {
         return result
     }
 
+    def getSaleProds(String randomString){
+        def sql = new Sql(dataSource)
+        def results = []
+        def query = ""
+        query = "SELECT product,quantity from sale_transaction where status = 'ACTIVA' AND id_mostrador = ?"
+        sql.eachRow(query,[randomString]){
+            def result = new Expando()
+            result.product = it.product
+            result.quantity = it.quantity
+            results.add(result)
+        }
+        return results
+    }
+
+    def updateQuantity(String product, Float quantity){
+        def sql = new Sql(dataSource)
+        def typeProd = ""
+        def quantityTmp = 0.0
+        def query = ""
+        query = "SELECT type FROM products where id = ?"
+        sql.eachRow(query,[product]){
+            typeProd = it.type
+        }
+        if(typeProd=="Kilogramo"){
+            quantityTmp = quantity / 1000
+            quantity = quantityTmp
+        }
+        query = "UPDATE products set quantity = quantity - ? WHERE id = ?"
+        sql.executeUpdate(query,[quantity,product])
+        return
+    }
+
+    def consProdByName(String text){
+        def sql = new Sql(dataSource)
+        def results = []
+        def query = ""
+        query = "SELECT product, sale_price, image FROM products WHERE product like '%"+text+"%' order by product asc limit 10"
+        sql.eachRow(query){
+            def result = new Expando()
+            result.product = it.product
+            result.salePrice = it.sale_price
+            result.image = it.image
+            results.add(result)
+        }
+        return  results
+    }
+
 }

@@ -33,7 +33,6 @@ class MostradorController {
             }
         }
 
-        println "randomString: "+randomString
         session.randomString =  randomString
         [mostradorInstance: new Mostrador(params)]
     }
@@ -70,33 +69,30 @@ class MostradorController {
                 if(result.type=="Pieza"){
                     price = result.salePrice * (1+(result.tax/100))
                     total = price * Float.parseFloat(params.quantity)
-                    println "price1: "+price
-                    println "total1: "+total
                     detail.price = price
                     detail.total = total
                 }
                 if(result.type=="Kilogramo"){
                     price = result.salePrice * (1+(result.tax/100))
                     total = price * Float.parseFloat(params.quantity) / 1000
-                    println "price2: "+price
-                    println "total2: "+total
                     detail.price = price
                     detail.total = total
+                }
+                SaleTransaction saleTran = new SaleTransaction()
+                saleTran.idMostrador = session.randomString
+                saleTran.product = detail.id
+                saleTran.price = price
+                saleTran.quantity = params.quantity
+                saleTran.total = total
+                saleTran.status = "ACTIVA"
+                if(saleTran.save(flush: true)){
+                    totalTmp = mostradorService.getTotal(session.randomString)
+                    totalTmp = totalTmp.round(2)
                 }
             }else{
                 detail.flag = false
             }
-            SaleTransaction saleTran = new SaleTransaction()
-            saleTran.idMostrador = session.randomString
-            saleTran.product = detail.id
-            saleTran.price = price
-            saleTran.quantity = params.quantity
-            saleTran.total = total
-            saleTran.status = "ACTIVA"
-            if(saleTran.save(flush: true)){
-                totalTmp = mostradorService.getTotal(session.randomString)
-                render(template: "productList",model: [detail:detail,totalTmp:totalTmp.toString()])
-            }
+            render(template: "productList",model: [detail:detail,totalTmp:totalTmp.toString()])
         }
     }
 
@@ -121,16 +117,12 @@ class MostradorController {
                 if(result.type=="Pieza"){
                     price = result.salePrice * (1+(result.tax/100))
                     total = price * Float.parseFloat(params.quantity)
-                    println "price1: "+price
-                    println "total1: "+total
                     detail.price = price
                     detail.total = total
                 }
                 if(result.type=="Kilogramo"){
                     price = result.salePrice * (1+(result.tax/100))
                     total = price * Float.parseFloat(params.quantity) / 1000
-                    println "price2: "+price
-                    println "total2: "+total
                     detail.price = price
                     detail.total = total
                 }
@@ -146,6 +138,7 @@ class MostradorController {
             saleTran.status = "ACTIVA"
             if(saleTran.save(flush: true)){
                 totalTmp = mostradorService.getTotal(session.randomString)
+                totalTmp = totalTmp.round(2)
                 render(template: "productList2",model: [detail:detail,totalTmp:totalTmp])
             }
         }
@@ -163,8 +156,28 @@ class MostradorController {
             redirect(action: "create")
         }
         def cambio = Float.parseFloat(params.pago) - Float.parseFloat(params.totalVenta)
+        cambio = cambio.round(2)
+        def prods = mostradorService.getSaleProds(session.randomString)
+        prods.each {
+            def res = mostradorService.updateQuantity(it.product.toString(),it.quantity)
+        }
         session.randomString = null
         [cambio:cambio,total:params.totalVenta,pago:params.pago]
+    }
+
+    def getByProd(){
+        println "params: "+params
+        def results = mostradorService.consProdByName(params.name)
+        render(template: "consByName",model: [results:results])
+    }
+
+    def getByCode(){
+        println "params: "+params
+        def results = mostradorService.getProductByCode(params.name)
+        def flag = false
+        if(results.id!="")
+            flag = true
+        render(template: "consByCode",model: [results:results,flag: flag])
     }
 
 }

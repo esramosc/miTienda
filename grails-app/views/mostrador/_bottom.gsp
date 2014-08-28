@@ -8,5 +8,5 @@
     <button class="btn btn-warning" onclick="closeSearch();">x c&oacute;digo</button>
 </div>
 <div class="col-md-3">
-    <button class="btn btn-success" value="Consultar" onclick="alert('ESR CONSULTAR');document.getElementById('productCode').focus();">Consultar</button>
+    <button class="btn btn-success" value="Consultar" onclick="openQuery();">Consultar</button>
 </div>

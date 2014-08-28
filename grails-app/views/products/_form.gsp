@@ -42,7 +42,7 @@
                 Cantidad
                 <span class="required-indicator">*</span>
             </label>
-            <g:textField name="quantity" type="text" value="${productsInstance.quantity}" required="" class="form-control number"/>
+            <g:textField name="quantity" type="text" value="${productsInstance.quantity}" required="" class="form-control price"/>
         </div>
     </div>
     <div class="col-md-4">

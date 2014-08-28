@@ -65,14 +65,22 @@
         </script>
         <script type="text/javascript">
             function openSearch(){
-                $('#byCode').css( "display", "none")
+                $('#byCode').css( "display", "none");
+                $('#ByQuery').css( "display", "none");
                 $('#byName').css( "display", "block");
                 $('#quantity2').focus();
             }
             function closeSearch(){
                 $('#byName').css( "display", "none")
                 $('#byCode').css( "display", "block");
+                $('#ByQuery').css( "display", "none");
                 $('#productCode').focus();
+            }
+            function openQuery(){
+                $('#byName').css( "display", "none")
+                $('#byCode').css( "display", "none");
+                $('#ByQuery').css( "display", "block");
+                //$('#productCode').focus();
             }
         </script>
 	</body>
