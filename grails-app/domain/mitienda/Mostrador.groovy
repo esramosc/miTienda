@@ -4,7 +4,7 @@ class Mostrador {
 
     String  customerId
     String  username
-    String  transactionDate
+    Date    transactionDate
     float   amount
     String  type //EFECTIVO , CREDITO
     String  idMostrador
