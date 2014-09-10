@@ -7,7 +7,7 @@ class Role {
     Date    registerDate
 
     static constraints = {
-        roleName blank: false, nullable: false
+        roleName blank: false, nullable: false, unique: true
         roleDescription blank: false, nullable: false
         registerDate nullable: true
     }

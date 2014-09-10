@@ -5,17 +5,26 @@ import org.springframework.dao.DataIntegrityViolationException
 class CategoryController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
+    def utilsService
 
     def index() {
         redirect(action: "create", params: params)
     }
 
     def list(Integer max) {
+        if (!utilsService.hasPermission(Integer.parseInt(session.roleId.toString()), params.controller, params.action)) { // Verificar si el usuario tiene permiso a esta accion.
+            redirect(controller: 'login', action: 'denied') // Redirigir a la pagina de acceso denegado.
+        }
+
         params.max = Math.min(max ?: 10, 100)
         [categoryInstanceList: Category.list(params), categoryInstanceTotal: Category.count()]
     }
 
     def create() {
+        if (!utilsService.hasPermission(Integer.parseInt(session.roleId.toString()), params.controller, params.action)) { // Verificar si el usuario tiene permiso a esta accion.
+            redirect(controller: 'login', action: 'denied') // Redirigir a la pagina de acceso denegado.
+        }
+
         [categoryInstance: new Category(params)]
     }
 
@@ -47,6 +56,10 @@ class CategoryController {
     }
 
     def edit(Long id) {
+        if (!utilsService.hasPermission(Integer.parseInt(session.roleId.toString()), params.controller, params.action)) { // Verificar si el usuario tiene permiso a esta accion.
+            redirect(controller: 'login', action: 'denied') // Redirigir a la pagina de acceso denegado.
+        }
+
         def categoryInstance = Category.get(id)
         if (!categoryInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'category.label', default: 'Category'), id])

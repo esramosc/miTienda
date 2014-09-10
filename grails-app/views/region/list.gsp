@@ -6,7 +6,7 @@
 		<meta name="layout" content="main">
 	</head>
 	<body>
-		<div class="row alert alert-warning">
+		<div class="row alert">
 			<h3>Lista de regiones</h3>
 			<table class="table table-responsive table-bordered">
 				<thead>
@@ -22,7 +22,7 @@
 				</thead>
 				<tbody>
 				<g:each in="${regionInstanceList}" status="i" var="regionInstance">
-					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+					<tr class="${(i % 2) == 0 ? 'info' : 'default'}">
 					
 						<td><g:link action="edit" id="${regionInstance.id}">${fieldValue(bean: regionInstance, field: "region")}</g:link></td>
 					

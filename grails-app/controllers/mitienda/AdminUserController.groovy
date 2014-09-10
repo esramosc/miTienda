@@ -13,6 +13,10 @@ class AdminUserController {
     }
 
     def list(Integer max) {
+        if (!utilsService.hasPermission(Integer.parseInt(session.roleId.toString()), params.controller, params.action)) { // Verificar si el usuario tiene permiso a esta accion.
+            redirect(controller: 'login', action: 'denied') // Redirigir a la pagina de acceso denegado.
+        }
+
         params.max = Math.min(max ?: 10, 100)
         def results = AdminUser.list(params)
         def adminUserInstanceList = []
@@ -34,6 +38,10 @@ class AdminUserController {
     }
 
     def create() {
+        if (!utilsService.hasPermission(Integer.parseInt(session.roleId.toString()), params.controller, params.action)) { // Verificar si el usuario tiene permiso a esta accion.
+            redirect(controller: 'login', action: 'denied') // Redirigir a la pagina de acceso denegado.
+        }
+
         def errorFormat = ""
         def roles = Role.list()
         def branches = Branch.list()
@@ -50,16 +58,18 @@ class AdminUserController {
             render(view: "create", model: [adminUserInstance: adminUserInstance,errorFormat:errorFormat,roles: roles,branches:branches])
             return
         }
-        def downloadedFile = request.getFile('photo')
-        def filename = downloadedFile.getOriginalFilename();
-        def extension = filename.substring(filename.lastIndexOf('.'))
-        if(extension != ".png" && extension != ".jpg" && extension != ".jpeg" && extension != ".PNG" && extension != ".JPG" && extension != ".JPEG" ){
-            render(view: "create", model: [adminUserInstance: adminUserInstance,errorFormat:"El formato del archivo no es permitido",roles:roles,branches:branches])
-            return
+        if(adminUserInstance.photo!="" && adminUserInstance.photo!=null){
+            def downloadedFile = request.getFile('photo')
+            def filename = downloadedFile.getOriginalFilename();
+            def extension = filename.substring(filename.lastIndexOf('.'))
+            if(extension != ".png" && extension != ".jpg" && extension != ".jpeg" && extension != ".PNG" && extension != ".JPG" && extension != ".JPEG" ){
+                render(view: "create", model: [adminUserInstance: adminUserInstance,errorFormat:"El formato del archivo no es permitido",roles:roles,branches:branches])
+                return
+            }
+            def newFileName = new Date().format("yyyy-MM-dd-HH-mm-ss") + extension
+            utilsService.uploadFileToFolder(downloadedFile,newFileName,"userPhotos")
+            adminUserInstance.photo = newFileName
         }
-        def newFileName = new Date().format("yyyy-MM-dd-HH-mm-ss") + extension
-        utilsService.uploadFileToFolder(downloadedFile,newFileName,"userPhotos")
-        adminUserInstance.photo = newFileName
         adminUserInstance.registerDate = new Date()
         if(!adminUserInstance.save(flush: true)){
             render(view: "create", model: [adminUserInstance: adminUserInstance,errorFormat:errorFormat,roles:roles,branches:branches])
@@ -82,6 +92,10 @@ class AdminUserController {
     }
 
     def edit(Long id) {
+        if (!utilsService.hasPermission(Integer.parseInt(session.roleId.toString()), params.controller, params.action)) { // Verificar si el usuario tiene permiso a esta accion.
+            redirect(controller: 'login', action: 'denied') // Redirigir a la pagina de acceso denegado.
+        }
+
         def adminUserInstance = AdminUser.get(id)
         def errorFormat = ""
         def roles = Role.list()

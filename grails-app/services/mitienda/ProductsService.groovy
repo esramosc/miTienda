@@ -29,10 +29,8 @@ class ProductsService {
             result.buyPrice = it.buy_price
             result.description = it.description
             result.image = it.image
-            result.mayorPrice = it.mayor_price
             result.minQuantity = it.min_quantity
             result.product = it.product
-            result.quantity = it.quantity
             result.salePrice = it.sale_price
             result.tax = it.tax
             result.type = it.type

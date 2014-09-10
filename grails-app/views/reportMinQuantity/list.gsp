@@ -41,7 +41,7 @@
         <div class="row alert alert-info">
             <div class="col-md-1">&nbsp;</div>
             <div class="col-md-5">
-                <span style="font-size: 30px;font-weight: bold;font-style: italic;">Exportar datos a <export:formats formats="['excel']" action="export" class="btn btn-success"/></span>
+                <span style="font-size: 30px;font-weight: bold;font-style: italic;">Exportar datos a <export:formats formats="['excel']" params="[branchId:branchId]" action="export" class="btn btn-success"/></span>
             </div>
             <div class="col-md-5">
                 &nbsp;

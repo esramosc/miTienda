@@ -6,7 +6,7 @@
 		<meta name="layout" content="main">
 	</head>
 	<body>
-		<div class="row alert alert-warning">
+		<div class="row alert">
 			<h3>Lista de proveedores</h3>
 			<table class="table table-responsive table-bordered">
 				<thead>

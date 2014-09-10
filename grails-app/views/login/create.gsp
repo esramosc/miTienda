@@ -5,7 +5,7 @@
 		<meta name="layout" content="main">
 	</head>
 	<body>
-		<div class="row alert alert-warning">
+		<div class="row">
             <div class="col-md-3">&nbsp;</div>
             <div class="col-md-6">
                 <h3>INGRESAR</h3>

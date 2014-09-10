@@ -6,12 +6,17 @@ class PermisosController {
 
     static allowedMethods = [save: "POST", update: "GET", delete: "POST"]
     def permisosService
+    def utilsService
 
     def index() {
         redirect(action: "create", params: params)
     }
 
     def create() {
+        if (!utilsService.hasPermission(Integer.parseInt(session.roleId.toString()), params.controller, params.action)) { // Verificar si el usuario tiene permiso a esta accion.
+            redirect(controller: 'login', action: 'denied') // Redirigir a la pagina de acceso denegado.
+        }
+
         def roles = permisosService.getRoles()
         def accesos = permisosService.getAccesos()
         def permisos = permisosService.getPermisos()

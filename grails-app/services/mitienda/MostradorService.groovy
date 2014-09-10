@@ -104,7 +104,7 @@ class MostradorService {
         return results
     }
 
-    def updateQuantity(String product, Float quantity){
+    def updateQuantity(String product, Float quantity, String branchId){
         def sql = new Sql(dataSource)
         def typeProd = ""
         def quantityTmp = 0.0
@@ -117,8 +117,8 @@ class MostradorService {
             quantityTmp = quantity / 1000
             quantity = quantityTmp
         }
-        query = "UPDATE products set quantity = quantity - ? WHERE id = ?"
-        sql.executeUpdate(query,[quantity,product])
+        query = "UPDATE stock_branch set quantity = quantity - ? WHERE product_id = ? AND branch_id = ?"
+        sql.executeUpdate(query,[quantity,product,branchId])
         return
     }
 

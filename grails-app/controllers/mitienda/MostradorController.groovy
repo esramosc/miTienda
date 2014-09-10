@@ -8,6 +8,7 @@ class MostradorController {
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
     def mostradorService
     def initCashService
+    def utilsService
 
     def index() {
         redirect(action: "create", params: params)
@@ -19,6 +20,10 @@ class MostradorController {
     }
 
     def create() {
+        if (!utilsService.hasPermission(Integer.parseInt(session.roleId.toString()), params.controller, params.action)) { // Verificar si el usuario tiene permiso a esta accion.
+            redirect(controller: 'login', action: 'denied') // Redirigir a la pagina de acceso denegado.
+        }
+
         if(!initCashService.alreadyOpen(session.username)){
             redirect(controller: "initCash")
         }
@@ -145,6 +150,10 @@ class MostradorController {
     }
 
     def completeSale(){
+        if(session.randomString==null){
+            redirect(action: "create")
+            return
+        }
         Mostrador most = new Mostrador()
         most.idMostrador = params.randomString
         most.customerId = params.customerSaleId
@@ -159,7 +168,7 @@ class MostradorController {
         cambio = cambio.round(2)
         def prods = mostradorService.getSaleProds(session.randomString)
         prods.each {
-            def res = mostradorService.updateQuantity(it.product.toString(),it.quantity)
+            def res = mostradorService.updateQuantity(it.product.toString(),it.quantity,session.branchId)
         }
         session.randomString = null
         [cambio:cambio,total:params.totalVenta,pago:params.pago]

@@ -5,7 +5,7 @@
 		<meta name="layout" content="main">
 	</head>
 	<body>
-		<div class="row alert alert-warning">
+		<div class="row alert">
 			<h3>Agregar / Quitar permisos</h3>
             <form method="POST" action="save" >
                 <table class="table table-bordered">

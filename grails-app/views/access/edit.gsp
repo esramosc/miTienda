@@ -13,7 +13,7 @@
         </script>
 	</head>
 	<body>
-		<div class="row alert alert-warning">
+		<div class="row">
             <div class="col-md-2">&nbsp;</div>
             <div class="col-md-8">
                 <h3>Editar acceso</h3>

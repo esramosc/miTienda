@@ -6,7 +6,7 @@
 		<meta name="layout" content="main">
 	</head>
 	<body>
-		<div class="row alert alert-warning">
+		<div class="row alert">
 			<h3>Lista de sucursales</h3>
 			<table class="table table-responsive table-bordered">
 				<thead>
@@ -26,7 +26,7 @@
 				</thead>
 				<tbody>
 				<g:each in="${branchInstanceList}" status="i" var="branchInstance">
-					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+					<tr class="${(i % 2) == 0 ? 'info' : 'default'}">
 					
 						<td><g:link action="edit" id="${branchInstance.id}">${fieldValue(bean: branchInstance, field: "region")}</g:link></td>
 					

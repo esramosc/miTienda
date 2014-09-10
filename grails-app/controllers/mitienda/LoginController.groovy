@@ -6,6 +6,7 @@ class LoginController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
     def loginService
+    def utilsService
 
     def index() {
         redirect(action: "create", params: params)
@@ -34,6 +35,7 @@ class LoginController {
         session.roleId = loginService.getRoleId(loginInstance.name)
         session.auth = "yes"
         session.username = loginInstance.name
+        session.branchId = loginService.getBranchId(loginInstance.name)
         redirect(action: "menu")
     }
 
@@ -46,6 +48,13 @@ class LoginController {
         userTran.transactionDesc = "Ingreso al sistema"
         userTran.transactionDate = new Date()
         userTran.save(flush: true)
+        def day = new Date().format("dd")
+        def month = loginService.getMonthInSP(new Date().format("MMMMM"))
+        def cashSales = loginService.getCashSales(session.username)
+        def creditSales = loginService.getCreditSales(session.username)
+        def nameOfUser = loginService.getNameOfUser(session.username)
+        def userImage = loginService.getImageOfUser(session.username)
+        [day:day,month:month,cashSales:cashSales,creditSales:creditSales,nameOfUser:nameOfUser,userImage:userImage]
     }
 
     def logout(){
@@ -53,6 +62,10 @@ class LoginController {
         session.auth = null
         session.username = null
         redirect(uri: "/")
+    }
+
+    def denied(){
+
     }
 
 

@@ -5,17 +5,26 @@ import org.springframework.dao.DataIntegrityViolationException
 class RegionController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
+    def utilsService
 
     def index() {
         redirect(action: "create", params: params)
     }
 
     def list(Integer max) {
+        if (!utilsService.hasPermission(Integer.parseInt(session.roleId.toString()), params.controller, params.action)) { // Verificar si el usuario tiene permiso a esta accion.
+            redirect(controller: 'login', action: 'denied') // Redirigir a la pagina de acceso denegado.
+        }
+
         params.max = Math.min(max ?: 10, 100)
         [regionInstanceList: Region.list(params), regionInstanceTotal: Region.count()]
     }
 
     def create() {
+        if (!utilsService.hasPermission(Integer.parseInt(session.roleId.toString()), params.controller, params.action)) { // Verificar si el usuario tiene permiso a esta accion.
+            redirect(controller: 'login', action: 'denied') // Redirigir a la pagina de acceso denegado.
+        }
+
         [regionInstance: new Region(params)]
     }
 
@@ -46,6 +55,10 @@ class RegionController {
     }
 
     def edit(Long id) {
+        if (!utilsService.hasPermission(Integer.parseInt(session.roleId.toString()), params.controller, params.action)) { // Verificar si el usuario tiene permiso a esta accion.
+            redirect(controller: 'login', action: 'denied') // Redirigir a la pagina de acceso denegado.
+        }
+
         def regionInstance = Region.get(id)
         if (!regionInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'region.label', default: 'Region'), id])

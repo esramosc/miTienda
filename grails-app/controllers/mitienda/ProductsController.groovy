@@ -13,6 +13,10 @@ class ProductsController {
     }
 
     def list(Integer max) {
+        if (!utilsService.hasPermission(Integer.parseInt(session.roleId.toString()), params.controller, params.action)) { // Verificar si el usuario tiene permiso a esta accion.
+            redirect(controller: 'login', action: 'denied') // Redirigir a la pagina de acceso denegado.
+        }
+
         params.max = Math.min(max ?: 10, 100)
         def results = Products.list(params)
         def productsInstanceList = []
@@ -22,10 +26,8 @@ class ProductsController {
             result.category = productsService.getCategoryDesc(it.category)
             result.product = it.product
             result.description = it.description
-            result.quantity = it.quantity
             result.buyPrice = it.buyPrice
             result.salePrice = it.salePrice
-            result.mayorPrice = it.mayorPrice
             result.tax = it.tax
             result.minQuantity = it.minQuantity
             result.type = it.type
@@ -38,6 +40,10 @@ class ProductsController {
     }
 
     def create() {
+        if (!utilsService.hasPermission(Integer.parseInt(session.roleId.toString()), params.controller, params.action)) { // Verificar si el usuario tiene permiso a esta accion.
+            redirect(controller: 'login', action: 'denied') // Redirigir a la pagina de acceso denegado.
+        }
+
         def errorFormat = ""
         def categories = Category.list()
         [productsInstance: new Products(params),errorFormat:errorFormat,categories:categories]
@@ -88,6 +94,10 @@ class ProductsController {
     }
 
     def edit(Long id) {
+        if (!utilsService.hasPermission(Integer.parseInt(session.roleId.toString()), params.controller, params.action)) { // Verificar si el usuario tiene permiso a esta accion.
+            redirect(controller: 'login', action: 'denied') // Redirigir a la pagina de acceso denegado.
+        }
+
         def productsInstance = Products.get(id)
         def categories = Category.list()
         if (!productsInstance) {
@@ -175,6 +185,7 @@ class ProductsController {
             results = productsService.getProdByDesc(params.description)
             isEmpty = false
         }
+
         render(template: "products",model: [results:results,isEmpty:isEmpty])
     }
 

@@ -20,6 +20,12 @@
         <link rel="stylesheet" href="${resource(dir:'css',file:'styles.css')}" type="text/css">
         <link rel="stylesheet" href="${resource(dir:'css',file:'menu.css')}" type="text/css">
         <g:javascript library="jquery" plugin="jquery"/>
+        <style>
+            body {
+
+                background-color: #98cc84;
+            }
+        </style>
 		<g:layoutHead/>
 		<r:layoutResources />
 	</head>
@@ -35,8 +41,10 @@
                             <div class="col-md-10">
                                 <div style="height: 100px;">
                                     <div id="owl-demo" class="owl-carousel">
-                                        <div class="item"><img src="${resource(dir:'images',file:'banner3.jpg')}"></div>
-                                        <div class="item"><img src="${resource(dir:'images',file:'banner4.jpg')}"></div>
+                                        <div class="item"><img src="${resource(dir:'images',file:'banner1.png')}"></div>
+                                        <div class="item"><img src="${resource(dir:'images',file:'banner2.png')}"></div>
+                                        <div class="item"><img src="${resource(dir:'images',file:'banner3.png')}"></div>
+                                        <div class="item"><img src="${resource(dir:'images',file:'banner4.png')}"></div>
                                     </div>
                                 </div>
                             </div>
@@ -58,7 +66,7 @@
                         </div>
                     </div>
                     <div class="panel-footer">
-                        <small>Desarrollado por xxxxx</small>
+                        <small>Desarrollado por: <strong>ESR.</strong> Contactar a: <a href="mailto:esramosc@hotmail.com">esramosc@hotmail.com</a>, tel&eacute;fono celular: <a href="tel:+529211848994">+52 921 - 184 8994</a>. </small>
                     </div>
                 </div>
 
@@ -73,7 +81,8 @@
                     singleItem : true,
                     transitionStyle : "fade",
                     autoPlay : true,
-                    pagination : false
+                    pagination : false,
+                    slideSpeed : 1000
                 });
             });
         </script>

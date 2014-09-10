@@ -64,7 +64,6 @@
                 <option value="">Seleccione</option>
                 <option value="ACTIVO" <%if(adminUserInstance.status=="ACTIVO"){print "selected"}%> >ACTIVO</option>
                 <option value="INACTIVO" <%if(adminUserInstance.status=="INACTIVO"){print "selected"}%> >INACTIVO</option>
-                <option value="ELIMINADO" <%if(adminUserInstance.status=="ELIMINADO"){print "selected"}%> >ELIMINADO</option>
             </select>
         </div>
     </div>

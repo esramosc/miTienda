@@ -6,7 +6,7 @@
 		<meta name="layout" content="main">
 	</head>
 	<body>
-		<div class="row alert alert-warning">
+		<div class="row">
             <div class="col-md-3">&nbsp;</div>
             <div class="col-md-6">
                 <h3>Datos ingresados</h3>
@@ -39,15 +39,6 @@
                     </li>
                     </g:if>
 
-                    <g:if test="${productsInstance?.quantity}">
-                    <li class="list-group-item">
-                        <span id="quantity-label" class="property-label"><strong>Cantidad: </strong></span>
-
-                            <span class="property-value" aria-labelledby="quantity-label"><g:fieldValue bean="${productsInstance}" field="quantity"/></span>
-
-                    </li>
-                    </g:if>
-
                     <g:if test="${productsInstance?.buyPrice}">
                     <li class="list-group-item">
                         <span id="buyPrice-label" class="property-label"><strong>Precio de compra: </strong></span>
@@ -62,15 +53,6 @@
                         <span id="salePrice-label" class="property-label"><strong>Precio de venta: </strong></span>
 
                             <span class="property-value" aria-labelledby="salePrice-label"><g:fieldValue bean="${productsInstance}" field="salePrice"/></span>
-
-                    </li>
-                    </g:if>
-
-                    <g:if test="${productsInstance?.mayorPrice}">
-                    <li class="list-group-item">
-                        <span id="mayorPrice-label" class="property-label"><strong>Precio mayorista: </strong></span>
-
-                            <span class="property-value" aria-labelledby="mayorPrice-label"><g:fieldValue bean="${productsInstance}" field="mayorPrice"/></span>
 
                     </li>
                     </g:if>

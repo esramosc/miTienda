@@ -5,7 +5,7 @@
 		<meta name="layout" content="main">
 	</head>
 	<body>
-		<div class="row alert alert-warning">
+		<div class="row">
             <div class="col-md-4">&nbsp;</div>
             <div class="col-md-4">
                 <h3>Apertura de caja</h3>

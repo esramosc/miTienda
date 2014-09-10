@@ -8,13 +8,21 @@
         <div class="row">
             &nbsp;
         </div>
-        <div class="row panel panel-warning">
-            <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-1">&nbsp;</div>
+            <div class="col-md-5">
                 <p class="indexText">
                     SISTEMA PARA GESTI&Oacute;N DE MINI TIENDAS
                 </p>
                 <P>
-                    <strong>FUNCIONES CON LAS QUE CUENTA:</strong> INVENTARIO, PROVEEDORES, VENTAS, CLIENTES, REPORTES.
+                    <strong>FUNCIONES CON LAS QUE CUENTA:</strong>
+                    <ul style="font-size: 16px;font-style: inherit;font-weight: bold;color: #6f6f6f;">
+                        <li>INVENTARIO</li>
+                        <li>PROVEEDORES</li>
+                        <li>VENTAS</li>
+                        <li>CLIENTES</li>
+                        <li>REPORTES</li>
+                    </ul>
                 </P>
             </div>
             <div class="col-md-2">&nbsp;</div>
@@ -28,23 +36,25 @@
         <div class="row">
             &nbsp;
         </div>
-		<div class="row">
-            <div class="col-md-3">
-                <div class="row">
-                    <img src="${resource(dir:'images',file:'ventas.png')}" width="200px"/>
+        <div style="margin-left: 50px;">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="row">
+                        <img src="${resource(dir:'images',file:'ventas.png')}" width="200px"/>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="row">
+                        <img src="${resource(dir:'images',file:'proveedor.png')}" width="200px"/>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <img src="${resource(dir:'images',file:'INVENTARIO.png')}" width="200px"/>
+                </div>
+                <div class="col-md-3">
+                    <img src="${resource(dir:'images',file:'reportes.png')}" width="200px"/>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="row">
-                    <img src="${resource(dir:'images',file:'proveedor.png')}" width="200px"/>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <img src="${resource(dir:'images',file:'INVENTARIO.png')}" width="200px"/>
-            </div>
-            <div class="col-md-3">
-                <img src="${resource(dir:'images',file:'reportes.png')}" width="200px"/>
-            </div>
-		</div>
+        </div>
 	</body>
 </html>

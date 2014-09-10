@@ -6,17 +6,44 @@ class ReportSalesMostradorService {
 
     def dataSource
 
-    def getTodaySales() {
+    def getTodaySales(String username) {
         def sql = new Sql(dataSource)
         def results = []
         def query = ""
         query = "select a.id_mostrador,a.username,a.customer_id,a.amount,a.type,date_format(a.transaction_date,'%d/%m/%Y %h:%i:%s %p') as registerDate, "
         query += "b.product,b.quantity,b.price,b.total from mostrador a, sale_transaction b "
         query += "where a.id_mostrador = b.id_mostrador "
-        query += "and b.status = 'ACTIVA' "
+        query += "and b.status = 'ACTIVA' AND a.username = ? "
         query += "and date_format(a.transaction_date,'%d/%m/%Y') = date_format(now(),'%d/%m/%Y') "
         query += "order by a.transaction_date asc"
-        sql.eachRow(query){
+        sql.eachRow(query,[username]){
+            def result = new Expando()
+            result.idMostrador = it.id_mostrador
+            result.username = it.username
+            result.customer = getCustomerName(it.customer_id)
+            result.amount = it.amount
+            result.type = it.type
+            result.registerDate = it.registerDate
+            result.product = getProductName(it.product)
+            result.quantity = it.quantity
+            result.price = it.price
+            result.total = it.total
+            results.add(result)
+        }
+        return results
+    }
+
+    def getTodaySalesByBranch(String branchId) {
+        def sql = new Sql(dataSource)
+        def results = []
+        def query = ""
+        query = "select a.id_mostrador,a.username,a.customer_id,a.amount,a.type,date_format(a.transaction_date,'%d/%m/%Y %h:%i:%s %p') as registerDate, "
+        query += "b.product,b.quantity,b.price,b.total from mostrador a, sale_transaction b "
+        query += "where a.id_mostrador = b.id_mostrador "
+        query += "and b.status = 'ACTIVA' AND a.username in(select username from admin_user where branch = ?) "
+        query += "and date_format(a.transaction_date,'%d/%m/%Y') = date_format(now(),'%d/%m/%Y') "
+        query += "order by a.transaction_date asc"
+        sql.eachRow(query,[branchId]){
             def result = new Expando()
             result.idMostrador = it.id_mostrador
             result.username = it.username

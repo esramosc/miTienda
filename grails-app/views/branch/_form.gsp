@@ -46,7 +46,6 @@
                 <option value="">Seleccione</option>
                 <option value="ACTIVA" <%if(branchInstance.status=="ACTIVA"){print "selected"}%> >ACTIVA</option>
                 <option value="INACTIVA" <%if(branchInstance.status=="INACTIVA"){print "selected"}%> >INACTIVA</option>
-                <option value="ELIMINADA" <%if(branchInstance.status=="ELIMINADA"){print "selected"}%> >ELIMINADA</option>
             </select>
         </div>
     </div>

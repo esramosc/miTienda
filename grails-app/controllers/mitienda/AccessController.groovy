@@ -6,17 +6,25 @@ class AccessController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
     def accessService
+    def utilsService
 
     def index() {
         redirect(action: "create", params: params)
     }
 
     def list(Integer max) {
+        if (!utilsService.hasPermission(Integer.parseInt(session.roleId.toString()), params.controller, params.action)) { // Verificar si el usuario tiene permiso a esta accion.
+            redirect(controller: 'login', action: 'denied') // Redirigir a la pagina de acceso denegado.
+        }
+
         params.max = Math.min(max ?: 10, 100)
         [accessInstanceList: Access.list(params), accessInstanceTotal: Access.count()]
     }
 
     def create() {
+        if (!utilsService.hasPermission(Integer.parseInt(session.roleId.toString()), params.controller, params.action)) { // Verificar si el usuario tiene permiso a esta accion.
+            redirect(controller: 'login', action: 'denied') // Redirigir a la pagina de acceso denegado.
+        }
         def errorSubcat = ""
         def categories = accessService.getCategories()
         [accessInstance: new Access(params),errorSubcat:errorSubcat,categories:categories]
@@ -67,6 +75,10 @@ class AccessController {
     }
 
     def edit(Long id) {
+        if (!utilsService.hasPermission(Integer.parseInt(session.roleId.toString()), params.controller, params.action)) { // Verificar si el usuario tiene permiso a esta accion.
+            redirect(controller: 'login', action: 'denied') // Redirigir a la pagina de acceso denegado.
+        }
+
         def accessInstance = Access.get(id)
         if (!accessInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'access.label', default: 'Access'), id])
@@ -129,22 +141,4 @@ class AccessController {
         redirect(action: "show", id: accessInstance.id)
     }
 
-    def delete(Long id) {
-        def accessInstance = Access.get(id)
-        if (!accessInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'access.label', default: 'Access'), id])
-            redirect(action: "list")
-            return
-        }
-
-        try {
-            accessInstance.delete(flush: true)
-            flash.message = message(code: 'default.deleted.message', args: [message(code: 'access.label', default: 'Access'), id])
-            redirect(action: "list")
-        }
-        catch (DataIntegrityViolationException e) {
-            flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'access.label', default: 'Access'), id])
-            redirect(action: "show", id: id)
-        }
-    }
 }

@@ -5,17 +5,27 @@ import org.springframework.dao.DataIntegrityViolationException
 class CustomerController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
+    def customerService
+    def utilsService
 
     def index() {
         redirect(action: "create", params: params)
     }
 
     def list(Integer max) {
+        if (!utilsService.hasPermission(Integer.parseInt(session.roleId.toString()), params.controller, params.action)) { // Verificar si el usuario tiene permiso a esta accion.
+            redirect(controller: 'login', action: 'denied') // Redirigir a la pagina de acceso denegado.
+        }
+
         params.max = Math.min(max ?: 10, 100)
         [customerInstanceList: Customer.list(params), customerInstanceTotal: Customer.count()]
     }
 
     def create() {
+        if (!utilsService.hasPermission(Integer.parseInt(session.roleId.toString()), params.controller, params.action)) { // Verificar si el usuario tiene permiso a esta accion.
+            redirect(controller: 'login', action: 'denied') // Redirigir a la pagina de acceso denegado.
+        }
+
         [customerInstance: new Customer(params)]
     }
 
@@ -48,6 +58,10 @@ class CustomerController {
     }
 
     def edit(Long id) {
+        if (!utilsService.hasPermission(Integer.parseInt(session.roleId.toString()), params.controller, params.action)) { // Verificar si el usuario tiene permiso a esta accion.
+            redirect(controller: 'login', action: 'denied') // Redirigir a la pagina de acceso denegado.
+        }
+
         def customerInstance = Customer.get(id)
         if (!customerInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'customer.label', default: 'Customer'), id])
@@ -105,4 +119,16 @@ class CustomerController {
             redirect(action: "show", id: id)
         }
     }
+
+    def searchByDesc(){
+        def results = []
+        def isEmpty = true
+        println "params: "+params
+        if(params.description!=""){
+            results = customerService.getCustomerByName(params.description)
+            isEmpty = false
+        }
+        render(template: "customers",model: [results:results,isEmpty:isEmpty])
+    }
+
 }

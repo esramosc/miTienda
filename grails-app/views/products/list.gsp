@@ -14,7 +14,7 @@
             </div>
             <div class="col-md-3">&nbsp;</div>
         </div>
-		<div class="row alert alert-warning">
+		<div class="row alert">
 			<h3>Lista de productos</h3>
             <span id="productsList">
                 <table class="table table-responsive table-bordered">
@@ -27,17 +27,15 @@
 
                             <g:sortableColumn property="description" title="Descripci&oacute;n" />
 
-                            <g:sortableColumn property="quantity" title="Cantidad" />
-
                             <g:sortableColumn property="buyPrice" title="Precio de compra" />
 
                             <g:sortableColumn property="salePrice" title="Precio de venta" />
 
-                            <g:sortableColumn property="mayorPrice" title="Precio mayoristas" />
-
                             <g:sortableColumn property="tax" title="IVA" />
 
                             <g:sortableColumn property="type" title="Tipo de unidad" />
+
+                            <g:sortableColumn property="minQuantity" title="Cantidad m&iacute;nima" />
 
                         </tr>
                     </thead>
@@ -45,23 +43,21 @@
                     <g:each in="${productsInstanceList}" status="i" var="productsInstance">
                         <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 
-                            <td><g:link action="edit" id="${productsInstance.id}">${fieldValue(bean: productsInstance, field: "category")}</g:link></td>
+                            <td>${fieldValue(bean: productsInstance, field: "category")}</td>
 
-                            <td>${fieldValue(bean: productsInstance, field: "product")}</td>
+                            <td><g:link action="edit" id="${productsInstance.id}">${fieldValue(bean: productsInstance, field: "product")}</g:link></td>
 
                             <td>${fieldValue(bean: productsInstance, field: "description")}</td>
-
-                            <td>${fieldValue(bean: productsInstance, field: "quantity")}</td>
 
                             <td>${fieldValue(bean: productsInstance, field: "buyPrice")}</td>
 
                             <td>${fieldValue(bean: productsInstance, field: "salePrice")}</td>
 
-                            <td>${fieldValue(bean: productsInstance, field: "mayorPrice")}</td>
-
                             <td>${fieldValue(bean: productsInstance, field: "tax")}</td>
 
                             <td>${fieldValue(bean: productsInstance, field: "type")}</td>
+
+                            <td>${fieldValue(bean: productsInstance, field: "minQuantity")}</td>
 
                         </tr>
                     </g:each>

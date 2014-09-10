@@ -37,21 +37,13 @@
 </div>
 <div class="row">
     <div class="col-md-4">
-        <div class="fieldcontain ${hasErrors(bean: productsInstance, field: 'quantity', 'error')} required form-group">
-            <label for="quantity">
-                Cantidad
-                <span class="required-indicator">*</span>
-            </label>
-            <g:textField name="quantity" type="text" value="${productsInstance.quantity}" required="" class="form-control price"/>
-        </div>
-    </div>
-    <div class="col-md-4">
         <div class="fieldcontain ${hasErrors(bean: productsInstance, field: 'buyPrice', 'error')} required form-group">
             <label for="buyPrice">
                 Precio de compra
                 <span class="required-indicator">*</span>
             </label>
             <g:textField name="buyPrice" value="${fieldValue(bean: productsInstance, field: 'buyPrice')}" required="" class="form-control price" />
+            <small>Por pieza o kiogramo</small>
         </div>
     </div>
     <div class="col-md-4">
@@ -63,17 +55,6 @@
             <g:textField name="salePrice" value="${fieldValue(bean: productsInstance, field: 'salePrice')}" required="" class="form-control price"/>
         </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-md-4">
-        <div class="fieldcontain ${hasErrors(bean: productsInstance, field: 'mayorPrice', 'error')} required form-group">
-            <label for="mayorPrice">
-                Precio mayorista
-                <span class="required-indicator">*</span>
-            </label>
-            <g:textField name="mayorPrice" value="${fieldValue(bean: productsInstance, field: 'mayorPrice')}" required="" class="form-control price"/>
-        </div>
-    </div>
     <div class="col-md-4">
         <div class="fieldcontain ${hasErrors(bean: productsInstance, field: 'tax', 'error')} required form-group">
             <label for="tax">
@@ -83,6 +64,8 @@
             <g:textField name="tax" value="${fieldValue(bean: productsInstance, field: 'tax')}" required="" class="form-control price"/>
         </div>
     </div>
+</div>
+<div class="row">
     <div class="col-md-4">
         <div class="fieldcontain ${hasErrors(bean: productsInstance, field: 'minQuantity', 'error')} required form-group">
             <label for="minQuantity">
@@ -90,10 +73,9 @@
                 <span class="required-indicator">*</span>
             </label>
             <g:textField name="minQuantity" type="number" min="1" value="${productsInstance.minQuantity}" required="" class="form-control number"/>
+            <small>Cantidad de piezas o total de kilogramos</small>
         </div>
     </div>
-</div>
-<div class="row">
     <div class="col-md-4">
         <div class="fieldcontain ${hasErrors(bean: productsInstance, field: 'type', 'error')} required form-group">
             <label for="type">

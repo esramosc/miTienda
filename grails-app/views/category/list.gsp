@@ -6,7 +6,7 @@
 		<meta name="layout" content="main">
 	</head>
 	<body>
-		<div class="row alert alert-warning">
+		<div class="row alert">
 			<h3>Lista de categor&iacute;as</h3>
 			<table class="table table-responsive table-bordered">
 				<thead>
@@ -22,7 +22,7 @@
 				</thead>
 				<tbody>
 				<g:each in="${categoryInstanceList}" status="i" var="categoryInstance">
-					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+					<tr class="${(i % 2) == 0 ? 'info' : 'default'}">
 					
 						<td><g:link action="edit" id="${categoryInstance.id}">${fieldValue(bean: categoryInstance, field: "name")}</g:link></td>
 					

@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <%
     def idMostrador = ""
-    def totalSale = 0.0
+    def totalSale = 0.0F
+    def totalSaleCredit = 0.0F
 %>
 <html>
 <head>
@@ -68,7 +69,10 @@
 
                         <td>${dt.total}</td>
                         <%
-                            totalSale = totalSale + dt.total
+                            if(dt.type=="EFECTIVO")
+                                totalSale = totalSale + dt.total
+                            if(dt.type=="CREDITO")
+                                totalSaleCredit = totalSaleCredit + dt.total
                         %>
                     </tr>
                 </g:each>
@@ -76,14 +80,15 @@
             </table>
         </div>
         <div class="row alert alert-info">
-            <div class="col-md-1">&nbsp;</div>
-            <div class="col-md-5">
-                <span style="font-size: 30px;font-weight: bold;font-style: italic;">Total del d&iacute;a: $ ${totalSale}</span>
+            <div class="col-md-4">
+                <span style="font-size: 25px;font-weight: bold;font-style: italic;">Total (Efectivo): $ ${totalSale.round(2)}</span>
             </div>
-            <div class="col-md-5">
-                <span style="font-size: 30px;font-weight: bold;font-style: italic;">Exportar datos a <export:formats formats="['excel']" action="export" class="btn btn-success"/></span>
+            <div class="col-md-4">
+                <span style="font-size: 25px;font-weight: bold;font-style: italic;">Total (Cr&eacute;dito): $ ${totalSaleCredit.round(2)}</span>
             </div>
-            <div class="col-md-1">&nbsp;</div>
+            <div class="col-md-4">
+                <span style="font-size: 25px;font-weight: bold;font-style: italic;">Exportar datos a <export:formats formats="['excel']" action="export" class="btn btn-success"/></span>
+            </div>
         </div>
     </body>
 </html>

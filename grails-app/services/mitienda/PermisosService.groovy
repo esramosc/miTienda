@@ -70,10 +70,10 @@ class PermisosService {
     {
         def sql= new Sql(dataSource)
         def result
-        def query="SELECT role_description from role where id=?"
+        def query="SELECT role_name from role where id=?"
         sql.eachRow(query,[id])
         {
-            result=it.role_description
+            result=it.role_name
         }
         return result
     }

@@ -6,12 +6,17 @@ class BranchController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
     def branchService
+    def utilsService
 
     def index() {
         redirect(action: "create", params: params)
     }
 
     def list(Integer max) {
+        if (!utilsService.hasPermission(Integer.parseInt(session.roleId.toString()), params.controller, params.action)) { // Verificar si el usuario tiene permiso a esta accion.
+            redirect(controller: 'login', action: 'denied') // Redirigir a la pagina de acceso denegado.
+        }
+
         params.max = Math.min(max ?: 10, 100)
         def results = Branch.list(params)
         def branchInstanceList = []
@@ -30,6 +35,10 @@ class BranchController {
     }
 
     def create() {
+        if (!utilsService.hasPermission(Integer.parseInt(session.roleId.toString()), params.controller, params.action)) { // Verificar si el usuario tiene permiso a esta accion.
+            redirect(controller: 'login', action: 'denied') // Redirigir a la pagina de acceso denegado.
+        }
+
         def regions = Region.list()
         [branchInstance: new Branch(params),regions:regions]
     }
@@ -64,6 +73,10 @@ class BranchController {
     }
 
     def edit(Long id) {
+        if (!utilsService.hasPermission(Integer.parseInt(session.roleId.toString()), params.controller, params.action)) { // Verificar si el usuario tiene permiso a esta accion.
+            redirect(controller: 'login', action: 'denied') // Redirigir a la pagina de acceso denegado.
+        }
+
         def branchInstance = Branch.get(id)
         def regions = Region.list()
         if (!branchInstance) {
