@@ -6,12 +6,13 @@ class SupplierPaymentService {
 
     def dataSource
 
-    def getSupplierAmount(String supplierId) {
+    def getSupplierAmount(String supplierId,String branchId) {
         def sql = new Sql(dataSource)
         def result = 0.0
         def query = ""
-        query = "select sum(actual_amount) as actualAmount from supplier_buy where status = 'PENDIENTE' and supplier_id = ?"
-        sql.eachRow(query, [supplierId]){
+        query = "select sum(actual_amount) as actualAmount from supplier_buy where status = 'PENDIENTE' and supplier_id = ? "
+        query += "AND username in (select username from admin_user where branch = ?)"
+        sql.eachRow(query, [supplierId,branchId]){
             result =  it.actualAmount
         }
         return  result

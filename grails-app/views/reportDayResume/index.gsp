@@ -4,6 +4,7 @@
         <meta name="layout" content="main">
         <link href="${resource(dir:'css',file: 'chartStyle.css')}" rel="stylesheet"/>
         <script src="${resource(dir:'js',file: 'chartScript.js')}"></script>
+
     </head>
     <body>
         <div class="row alert">
@@ -45,12 +46,20 @@
                     </tr>
                 </table>
             </div>
+            <div style="margin-top: 580px;margin-left: 120px;">
+                <a href="#" onclick="printScreen();" class="btn btn-lg btn-danger">Imprimir pantalla</a>
+            </div>
         </div>
         <script type="text/javascript">
             $( document ).ready(function() {
                 // Run the code when the DOM is ready
                 $( pieChart );
+
+
             });
+            function printScreen(){
+                window.print();
+            }
         </script>
     </body>
 </html>

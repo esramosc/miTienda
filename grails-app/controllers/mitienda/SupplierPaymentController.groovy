@@ -130,7 +130,7 @@ class SupplierPaymentController {
     }
 
     def getSupplierData(){
-        def amount = supplierPaymentService.getSupplierAmount(params.supplierId)
+        def amount = supplierPaymentService.getSupplierAmount(params.supplierId,session.branchId)
         render(template: "supplierAmount",model: [amount:amount])
     }
 
